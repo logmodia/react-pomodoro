@@ -1,0 +1,84 @@
+.app {
+    margin: 0px auto;
+    border: 1px solid green;
+    color: white;
+    padding: 50px;
+
+    .mainDiv {
+        margin: 0 auto;
+        width: 100vh;
+        border: 5px solid #4a5366;
+        background-color: #4a5366;
+        border-radius: 50px 10px 50px 10px;
+
+        .title {
+            font-size: 3rem;
+            font-weight: bold;
+            width: 50%;
+            text-align: center;
+            color: #8a909c;
+            font-weight: bold;
+            text-shadow: 3px 3px 3px rgb(240, 233, 233);
+        }
+        .containerMainBtn-Timer {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            position: relative;
+            left: 30px;
+            &__containerMainBtn {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                .mainBtn {
+                    width: 200px;
+                    height: 50px;
+                    margin: 5px;
+                    font-size: 1.8rem;
+                    font-weight: bold;
+                    color: #8a909c;
+                    background-color: #4a5366;
+                    border-radius: 50px 10px 50px 10px;
+
+                    &:hover {
+                        color: #f8f9fc;
+                        text-shadow: 3px 3px 3px rgb(228, 198, 198);
+                    }
+                }
+            }
+            .timerContainer {
+                padding: 20px;
+                display: flex;
+                justify-content: right;
+                border-radius: 50%;
+                background-color: white;
+
+                position: relative;
+                left: 50px;
+                bottom: 100px;
+
+                &__timer {
+                    margin: auto 0px;
+                    font-size: 3rem;
+                    width: 50vh;
+                    height: 50vh;
+                    border-radius: 25vh;
+                    background-color: #4a5366;
+
+                    display: flex;
+                    justify-content: center;
+
+                    &__countDown {
+                        margin: auto 10px;
+
+                        color: white;
+                        text-align: center;
+                        font-size: 5rem;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+    }
+}
