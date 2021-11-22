@@ -39,6 +39,7 @@
                     font-weight: bold;
                     color: #8a909c;
                     background-color: #4a5366;
+                    border: 3px outset rgb(138, 135, 135);
                     border-radius: 50px 10px 50px 10px;
 
                     &:hover {
@@ -80,5 +81,32 @@
                 }
             }
         }
+        .settings {
+            display: flex;
+            justify-content: space-around;
+            border: 2px solid white;
+            margin: 30px;
+            padding: 3px;
+            font-weight: bold;
+
+            &__containerInputAndBtn {
+                .containerInputAndBtn__input {
+                    width: 30px;
+                    text-align: center;
+                }
+            }
+        }
     }
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
 }

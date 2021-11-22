@@ -3,11 +3,13 @@ import "../src/app.scss";
 import TimerViewer from "./timerviewer";
 import Settings from "./settings";
 
-let s = 60;
+let s = 0;
 let m = 0;
 let runTimer;
 let playPauseTiltle = "Pause";
 let activReset = "init";
+let WTorBT = "WT";
+let RT = 1;
 
 export function App() {
     const [start, setStart] = useState(false);
@@ -23,7 +25,7 @@ export function App() {
     };
     const decreaseWorkTime = () => {
         setworkTime((x) => {
-            x > 0 ? x-- : (x = 0);
+            x > 1 ? x-- : (x = 1);
             return x;
         });
     };
@@ -33,7 +35,7 @@ export function App() {
     };
     const decreaseBreakTime = () => {
         setbreakTime((x) => {
-            x > 0 ? x-- : (x = 0);
+            x > 1 ? x-- : (x = 1);
             return x;
         });
     };
@@ -53,7 +55,7 @@ export function App() {
     const reset = () => {
         activReset = true;
         setSec("00");
-        setMin("00");
+        setMin("0");
         clearInterval(runTimer);
         m = 0;
         s = 0;
@@ -66,7 +68,28 @@ export function App() {
             runTimer = setInterval(() => {
                 s = s - 1;
                 if (s == 0 && m == 0) {
-                    reset();
+                    if (WTorBT == "WT") {
+                        WTorBT = "BT";
+                        m = breakTime - 1;
+                        s = 59;
+                        console.log("BT now");
+                    } else {
+                        //End of break time----------
+                        if (RT <= 0) {
+                            reset();
+                            console.log(
+                                "fin pomodoro \nCycle(s) : " + (repeat - RT),
+                            );
+                        } else {
+                            RT = RT - 1;
+                            WTorBT = "WT";
+                            m = workTime - 1;
+                            s = 59;
+                            console.log(
+                                "Work T now\n" + "Cycle(s) : " + (repeat - RT),
+                            );
+                        }
+                    }
                 } else if (s == 0) {
                     s = 59;
                     m = m - 1;
@@ -82,11 +105,14 @@ export function App() {
         if (activReset == true || activReset == "init") {
             m = workTime - 1;
             s = 60;
+            RT = repeat - 1;
             setStart(true);
             setInterval(runTimer, 1000);
 
             activReset = false;
             playPauseTiltle = "Pause";
+            WTorBT = "WT";
+            console.log("Work T now");
         } else {
             setStart(true);
             setInterval(runTimer, 1000);
