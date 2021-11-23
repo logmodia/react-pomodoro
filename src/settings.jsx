@@ -41,8 +41,8 @@ export default function Settings(settings) {
 
     return (
         <div className="settings">
-            <span>{"work time : "}</span>
             <div className="settings__containerInputAndBtn">
+                <span>{"work time : "}</span>
                 <button
                     className="containerInputAndBtn__Btn"
                     onMouseDown={mousedownDecreaseWT}
@@ -85,7 +85,7 @@ export default function Settings(settings) {
             </div>
 
             <div className="settings__containerInputAndBtn">
-                <span>{"Repeat : "}</span>
+                <span>{"Cycle(s) : "}</span>
                 <button
                     className="containerInputAndBtn__Btn"
                     onMouseDown={mousedownDecreaseRepeat}

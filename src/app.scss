@@ -1,6 +1,5 @@
 .app {
     margin: 0px auto;
-    border: 1px solid green;
     color: white;
     padding: 50px;
 
@@ -78,6 +77,27 @@
                         font-size: 5rem;
                         font-weight: bold;
                     }
+
+                    .gridFormatTimer {
+                        margin: auto 0;
+                        height: 30px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-items: center;
+                        align-items: center;
+                        justify-content: space-around;
+                        gap: 10px;
+
+                        .min {
+                            font-size: 1.8rem;
+                            color: rgb(170, 148, 148);
+                        }
+
+                        .wt {
+                            margin-top: 40px;
+                            color: orange;
+                        }
+                    }
                 }
             }
         }
@@ -93,6 +113,55 @@
                 .containerInputAndBtn__input {
                     width: 30px;
                     text-align: center;
+                    font-size: 1rem;
+                }
+                .containerInputAndBtn__Btn {
+                    font-size: 1rem;
+                }
+            }
+        }
+    }
+    .bgModal {
+        margin: 0 auto;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(150, 200, 280, 0.5);
+
+        &__modal {
+            margin: 0 auto;
+            padding: 10px;
+            width: 70vh;
+            height: 30vh;
+            border-radius: 100px 10px 100px 10px;
+            background-color: rgba(156, 30, 30, 0.9);
+            &__p {
+                margin: 40px auto;
+                width: 90%;
+                font-size: 2.3rem;
+                font-weight: bold;
+                text-align: center;
+            }
+            &__containerBtn {
+                padding: 10px;
+                display: flex;
+                justify-content: space-around;
+                justify-items: center;
+
+                &__Btn {
+                    width: 150px;
+                    height: 40px;
+                    color: white;
+                    font-size: 1rem;
+                    font-weight: bold;
+                    background-color: rgba(156, 30, 30, 0.9);
+                    border: 3px outset rgb(138, 135, 135);
+                    border-radius: 50px 10px 50px 10px;
                 }
             }
         }
@@ -109,4 +178,181 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type="number"] {
     -moz-appearance: textfield;
+}
+
+.hide {
+    visibility: hidden;
+}
+
+@media only screen and (max-width: 868px) {
+    .mainDiv {
+        width: 70vh !important;
+        .title {
+            font-size: 2.5rem !important;
+            text-align: center !important;
+            padding-left: 20px !important;
+        }
+        .containerMainBtn-Timer {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            position: relative;
+            left: 30px;
+            width: fit-content !important;
+            &__containerMainBtn {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                .mainBtn {
+                    width: 100px;
+                    height: 50px;
+                    margin: 5px;
+                    font-size: 2rem !important;
+                    font-weight: bold;
+                }
+            }
+            .timerContainer {
+                width: fit-content !important;
+
+                &__timer {
+                    margin: auto 0px;
+                    font-size: 3rem !important;
+                    width: 30vh !important;
+                    height: 30vh !important;
+                    border-radius: 15vh !important;
+
+                    display: flex;
+                    justify-content: center;
+
+                    &__countDown {
+                        margin: auto 10px;
+                        font-size: 2.5rem !important;
+                    }
+
+                    .gridFormatTimer {
+                        margin: auto 0;
+                        height: 30px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-items: center;
+                        align-items: center;
+                        justify-content: space-around;
+                        gap: 5px !important;
+                        width: 60% !important;
+
+                        .min {
+                            font-size: 1rem !important;
+                        }
+                        .wt {
+                            margin-top: 10px !important;
+                            font-size: 2rem !important;
+                        }
+                    }
+                }
+            }
+        }
+        .settings {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px !important;
+            padding: 3px !important;
+            width: fit-content !important;
+
+            &__containerInputAndBtn {
+                .containerInputAndBtn__input {
+                    width: 30px;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 570px) {
+    .app {
+        padding: 20px;
+    }
+    .mainDiv {
+        width: 40vh !important;
+        .title {
+            font-size: 2rem !important;
+            text-align: center !important;
+            padding-left: 20px !important;
+        }
+        .containerMainBtn-Timer {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            left: 0px !important;
+            width: fit-content !important;
+            &__containerMainBtn {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                .mainBtn {
+                    width: 100px !important;
+                    height: 30px !important;
+                    margin: 2px !important;
+                    font-size: 1rem !important;
+                }
+            }
+            .timerContainer {
+                width: fit-content !important;
+                bottom: 0px !important;
+
+                &__timer {
+                    margin: auto 0px;
+                    font-size: 2rem !important;
+                    width: 20vh !important;
+                    height: 20vh !important;
+                    border-radius: 10vh !important;
+
+                    display: flex;
+                    justify-content: center;
+
+                    &__countDown {
+                        margin: auto 5px !important;
+                        font-size: 1.8rem !important;
+                        width: max-content;
+                    }
+
+                    .gridFormatTimer {
+                        margin: auto 0;
+                        height: 30px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-items: center;
+                        align-items: center;
+                        justify-content: space-around;
+                        gap: 2px !important;
+                        width: 40% !important;
+
+                        .min {
+                            font-size: 0.9rem !important;
+                        }
+                        .wt {
+                            margin-top: 5px !important;
+                            font-size: 1rem !important;
+                        }
+                    }
+                }
+            }
+        }
+        .settings {
+            justify-content: space-evenly !important;
+            flex-direction: column;
+            margin: 5px !important;
+            padding: 1px !important;
+            width: 90% !important;
+            border: 0px solid #4a5366 !important;
+            &__containerInputAndBtn {
+                width: 300px !important;
+                margin: 5px 0px;
+                .containerInputAndBtn__input {
+                    text-align: center;
+                }
+            }
+        }
+    }
 }

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import "../src/app.scss";
 import TimerViewer from "./timerviewer";
 import Settings from "./settings";
@@ -8,17 +8,30 @@ let m = 0;
 let runTimer;
 let playPauseTiltle = "Pause";
 let activReset = "init";
-let WTorBT = "WT";
+let WTorBT = "Waitting...";
 let RT = 1;
+let styleHideModal = {visibility: "hidden"};
 
 export function App() {
+    const longBeep = useRef();
+    const shortBeep = useRef();
+
     const [start, setStart] = useState(false);
-    const [sec, setSec] = useState("");
-    const [min, setMin] = useState("");
+    const [sec, setSec] = useState("0");
+    const [min, setMin] = useState("0");
 
     const [workTime, setworkTime] = useState(25);
     const [breakTime, setbreakTime] = useState(5);
     const [repeat, setrepeat] = useState(1);
+
+    const playshortBeep = () => {
+        shortBeep.current.currentTime = 0;
+        shortBeep.current.play();
+    };
+    const playlongBeep = () => {
+        longBeep.current.currentTime = 0;
+        longBeep.current.play();
+    };
 
     const incrementWorkTime = () => {
         setworkTime((x) => (x = x + 1));
@@ -47,47 +60,50 @@ export function App() {
     };
     const decreaseRepeat = () => {
         setrepeat((x) => {
-            x > 0 ? x-- : (x = 0);
+            x > 1 ? x-- : (x = 1);
             return x;
         });
     };
 
     const reset = () => {
         activReset = true;
-        setSec("00");
-        setMin("0");
+        setStart(false);
         clearInterval(runTimer);
         m = 0;
         s = 0;
-        setStart(false);
+        setSec("00");
+        setMin("0");
         playPauseTiltle = "Pause";
     };
 
     useEffect(() => {
+        if (activReset == "init") {
+            setSec("00");
+        }
         if (start == true) {
             runTimer = setInterval(() => {
                 s = s - 1;
+                if (m === 0 && s < 10) {
+                    playshortBeep();
+                }
                 if (s == 0 && m == 0) {
                     if (WTorBT == "WT") {
                         WTorBT = "BT";
                         m = breakTime - 1;
                         s = 59;
-                        console.log("BT now");
+                        playlongBeep();
                     } else {
                         //End of break time----------
                         if (RT <= 0) {
                             reset();
-                            console.log(
-                                "fin pomodoro \nCycle(s) : " + (repeat - RT),
-                            );
+                            WTorBT = "Waitting...";
+                            playlongBeep();
+                            styleHideModal = {visibility: "visible"};
                         } else {
                             RT = RT - 1;
                             WTorBT = "WT";
                             m = workTime - 1;
                             s = 59;
-                            console.log(
-                                "Work T now\n" + "Cycle(s) : " + (repeat - RT),
-                            );
                         }
                     }
                 } else if (s == 0) {
@@ -112,7 +128,7 @@ export function App() {
             activReset = false;
             playPauseTiltle = "Pause";
             WTorBT = "WT";
-            console.log("Work T now");
+            styleHideModal = {visibility: "hidden"};
         } else {
             setStart(true);
             setInterval(runTimer, 1000);
@@ -122,6 +138,11 @@ export function App() {
 
     const resetTimer = () => {
         reset();
+    };
+
+    const stopPomodoro = () => {
+        reset();
+        styleHideModal = {visibility: "hidden"};
     };
 
     const pauseTimer = () => {
@@ -144,34 +165,70 @@ export function App() {
     };
 
     return (
-        <div className="mainDiv">
-            <h1 className="title">{"MyPomodoro"}</h1>
-            <div className="containerMainBtn-Timer">
-                <div className="containerMainBtn-Timer__containerMainBtn">
-                    <button className="mainBtn" onClick={startTimer}>
-                        Start
-                    </button>
-                    <button className="mainBtn" onClick={pauseTimer}>
-                        {playPauseTiltle}
-                    </button>
-                    <button className="mainBtn" onClick={resetTimer}>
-                        Reset
-                    </button>
+        <>
+            <div className="mainDiv">
+                <h1 className="title" onClick={playshortBeep}>
+                    {"MyPomodoro"}
+                </h1>
+                <div className="containerMainBtn-Timer">
+                    <div className="containerMainBtn-Timer__containerMainBtn">
+                        <button
+                            type="button"
+                            className="mainBtn"
+                            onClick={startTimer}>
+                            Start
+                        </button>
+                        <button
+                            type="button"
+                            className="mainBtn"
+                            onClick={pauseTimer}>
+                            {playPauseTiltle}
+                        </button>
+                        <button
+                            type="button"
+                            className="mainBtn"
+                            onClick={resetTimer}>
+                            Reset
+                        </button>
+                    </div>
+                    <TimerViewer min={min} sec={sec} WTorBT={WTorBT} />
                 </div>
-                <TimerViewer min={min} sec={sec} />
-            </div>
 
-            <Settings
-                workTime={workTime}
-                breakTime={breakTime}
-                repeat={repeat}
-                incrementWorkTime={incrementWorkTime}
-                decreaseWorkTime={decreaseWorkTime}
-                incrementBreakTime={incrementBreakTime}
-                decreaseBreakTime={decreaseBreakTime}
-                incrementRepeat={incrementRepeat}
-                decreaseRepeat={decreaseRepeat}
-            />
-        </div>
+                <Settings
+                    workTime={workTime}
+                    breakTime={breakTime}
+                    repeat={repeat}
+                    incrementWorkTime={incrementWorkTime}
+                    decreaseWorkTime={decreaseWorkTime}
+                    incrementBreakTime={incrementBreakTime}
+                    decreaseBreakTime={decreaseBreakTime}
+                    incrementRepeat={incrementRepeat}
+                    decreaseRepeat={decreaseRepeat}
+                />
+            </div>
+            <div className={"bgModal"} style={styleHideModal}>
+                <div className="bgModal__modal">
+                    <p className="bgModal__modal__p">
+                        {"Do you want to restart ?"}
+                    </p>
+                    <div className="bgModal__modal__containerBtn">
+                        <button
+                            type="button"
+                            onClick={startTimer}
+                            className="bgModal__modal__containerBtn__Btn">
+                            {"Yes, Restart"}
+                        </button>
+                        <button
+                            type="button"
+                            onClick={stopPomodoro}
+                            className="bgModal__modal__containerBtn__Btn">
+                            {"No, Stop"}
+                        </button>
+                    </div>
+                </div>
+                <audio src="/shortBeep.wav" ref={shortBeep}></audio>
+                <audio src="/longBeep.wav" ref={longBeep}></audio>
+            </div>
+        </>
     );
 }
