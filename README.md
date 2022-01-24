@@ -13,4 +13,4 @@
   * One to close the modal
   * Another to close the modal and start a new timer
 
-[Click here to get to my pomodoro app](mypomodoro-react.netlify.app/)
+[Click here to get to my pomodoro app](https://mypomodoro-react.netlify.app)
