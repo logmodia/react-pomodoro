@@ -12,3 +12,5 @@
 * At the end of the timer, show a modal to invite user to take a break. The modal will have two buttons:
   * One to close the modal
   * Another to close the modal and start a new timer
+
+[Click here to get to my pomodoro app](mypomodoro-react.netlify.app/)
